@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import { Navbar } from "@/components/navbar"
-import { MOVIES, Movie } from "@/lib/movie-data"
+import { Movie } from "@/lib/movie-data"
 import { MovieCard } from "@/components/movie-card"
 import { MovieDetailsModal } from "@/components/movie-details-modal"
 import { ChatbotAssistant } from "@/components/chatbot-assistant"
@@ -16,33 +16,70 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from "@/components/ui/carousel"
-import { Sparkles, TrendingUp, Clock, Star, PlayCircle } from "lucide-react"
+import { Sparkles, TrendingUp, Clock, Star, PlayCircle, Loader2 } from "lucide-react"
+import { fetchTrending, fetchTopRated, fetchNewReleases, searchMovies } from "@/lib/tmdb"
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = React.useState("")
   const [selectedMovie, setSelectedMovie] = React.useState<Movie | null>(null)
   const [activeFilter, setActiveFilter] = React.useState("All")
   const [currentYear, setCurrentYear] = React.useState<number | null>(null)
+  
+  const [trending, setTrending] = React.useState<Movie[]>([])
+  const [topRated, setTopRated] = React.useState<Movie[]>([])
+  const [recent, setRecent] = React.useState<Movie[]>([])
+  const [searchResults, setSearchResults] = React.useState<Movie[]>([])
+  const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
     setCurrentYear(new Date().getFullYear())
+    
+    const loadInitialData = async () => {
+      try {
+        const [t, tr, n] = await Promise.all([
+          fetchTrending(),
+          fetchTopRated(),
+          fetchNewReleases()
+        ])
+        setTrending(t)
+        setTopRated(tr)
+        setRecent(n)
+      } catch (error) {
+        console.error("Failed to fetch TMDB data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadInitialData()
   }, [])
+
+  React.useEffect(() => {
+    const performSearch = async () => {
+      if (searchQuery.trim()) {
+        setIsLoading(true)
+        const results = await searchMovies(searchQuery)
+        setSearchResults(results)
+        setIsLoading(false)
+      } else {
+        setSearchResults([])
+      }
+    }
+
+    const timer = setTimeout(performSearch, 500)
+    return () => clearTimeout(timer)
+  }, [searchQuery])
 
   const filters = ["All", "Movie", "Series", "Animation", "Action", "Sci-Fi", "Drama", "Crime", "Thriller", "Adventure"]
 
-  // Filtering logic for the main exploration grid
-  const filteredMovies = MOVIES.filter(movie => {
-    const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const displayMovies = searchQuery.trim() ? searchResults : trending
+
+  const filteredMovies = displayMovies.filter(movie => {
     const matchesFilter = activeFilter === "All" || 
                           movie.genre.includes(activeFilter) || 
                           movie.type === activeFilter
-    return matchesSearch && matchesFilter
+    return matchesFilter
   })
-
-  // Specific lists for curated sections
-  const trendingMovies = MOVIES.filter(m => m.rating >= 8.5 && m.year >= 2015).slice(0, 8)
-  const recentMovies = MOVIES.filter(m => m.year >= 2021).sort((a, b) => b.year - a.year).slice(0, 8)
-  const topRatedMovies = [...MOVIES].sort((a, b) => b.rating - a.rating).slice(0, 8)
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -66,7 +103,7 @@ export default function Home() {
               <p className="text-xl md:text-2xl font-medium text-accent/80 tracking-wide uppercase">Your Cinematic Odyssey Starts Here</p>
             </div>
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              Experience the best of Hollywood, Bollywood, and beyond. AI-powered recommendations tailored to your unique taste.
+              Experience the best of Hollywood, Bollywood, and beyond. Real-time data powered by TMDB and tailored to your unique taste.
             </p>
             <div className="flex gap-4 pt-4">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-14 text-lg font-bold shadow-lg shadow-primary/20">
@@ -79,80 +116,95 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Curated Sections */}
-        <MovieSection 
-          title="Trending Now" 
-          movies={trendingMovies} 
-          icon={<TrendingUp className="w-6 h-6 text-accent" />} 
-          onMovieClick={setSelectedMovie}
-        />
-
-        <MovieSection 
-          title="Top Rated" 
-          movies={topRatedMovies} 
-          icon={<Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />} 
-          onMovieClick={setSelectedMovie}
-        />
-
-        <MovieSection 
-          title="Recently Added" 
-          movies={recentMovies} 
-          icon={<Clock className="w-6 h-6 text-primary" />} 
-          onMovieClick={setSelectedMovie}
-        />
-
-        {/* Discovery & Browsing Grid */}
-        <section className="space-y-8 pt-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-2">
-              <h2 className="text-4xl font-black tracking-tight flex items-center gap-3">
-                <Sparkles className="w-8 h-8 text-accent animate-pulse" /> EXPLORE ALL
-              </h2>
-              <p className="text-muted-foreground text-lg">Browse our entire universe of content</p>
-            </div>
-            
-            <div className="flex flex-wrap gap-2">
-              {filters.map(filter => (
-                <Button
-                  key={filter}
-                  variant={activeFilter === filter ? "default" : "secondary"}
-                  size="sm"
-                  onClick={() => setActiveFilter(filter)}
-                  className={`rounded-full px-6 transition-all duration-300 ${
-                    activeFilter === filter 
-                    ? 'bg-primary text-primary-foreground scale-105 shadow-lg shadow-primary/30' 
-                    : 'bg-muted/50 hover:bg-muted'
-                  }`}
-                >
-                  {filter}
-                </Button>
-              ))}
-            </div>
+        {isLoading && !trending.length ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-4">
+            <Loader2 className="w-10 h-10 animate-spin text-accent" />
+            <p className="text-muted-foreground animate-pulse">Initializing your Cinematic Universe...</p>
           </div>
+        ) : (
+          <>
+            {!searchQuery && (
+              <>
+                <MovieSection 
+                  title="Trending This Week" 
+                  movies={trending} 
+                  icon={<TrendingUp className="w-6 h-6 text-accent" />} 
+                  onMovieClick={setSelectedMovie}
+                />
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-            {filteredMovies.map(movie => (
-              <MovieCard 
-                key={movie.id} 
-                movie={movie} 
-                onClick={(m) => setSelectedMovie(m)}
-              />
-            ))}
-          </div>
+                <MovieSection 
+                  title="Top Rated Classics" 
+                  movies={topRated} 
+                  icon={<Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />} 
+                  onMovieClick={setSelectedMovie}
+                />
 
-          {filteredMovies.length === 0 && (
-            <div className="text-center py-32 space-y-6 bg-muted/20 rounded-3xl border border-dashed border-border">
-              <div className="text-6xl">🎬</div>
-              <div className="space-y-2">
-                <p className="text-2xl font-bold">No results found</p>
-                <p className="text-muted-foreground">Try adjusting your filters or search terms</p>
+                <MovieSection 
+                  title="New Releases" 
+                  movies={recent} 
+                  icon={<Clock className="w-6 h-6 text-primary" />} 
+                  onMovieClick={setSelectedMovie}
+                />
+              </>
+            )}
+
+            {/* Discovery & Browsing Grid */}
+            <section className="space-y-8 pt-8">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div className="space-y-2">
+                  <h2 className="text-4xl font-black tracking-tight flex items-center gap-3">
+                    <Sparkles className="w-8 h-8 text-accent animate-pulse" /> 
+                    {searchQuery ? `SEARCH RESULTS FOR "${searchQuery.toUpperCase()}"` : "EXPLORE ALL"}
+                  </h2>
+                  <p className="text-muted-foreground text-lg">
+                    {searchQuery ? "Found in our live cinematic database" : "Browse our entire universe of content"}
+                  </p>
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  {filters.map(filter => (
+                    <Button
+                      key={filter}
+                      variant={activeFilter === filter ? "default" : "secondary"}
+                      size="sm"
+                      onClick={() => setActiveFilter(filter)}
+                      className={`rounded-full px-6 transition-all duration-300 ${
+                        activeFilter === filter 
+                        ? 'bg-primary text-primary-foreground scale-105 shadow-lg shadow-primary/30' 
+                        : 'bg-muted/50 hover:bg-muted'
+                      }`}
+                    >
+                      {filter}
+                    </Button>
+                  ))}
+                </div>
               </div>
-              <Button variant="outline" className="rounded-full" onClick={() => {setSearchQuery(""); setActiveFilter("All")}}>
-                Clear all filters
-              </Button>
-            </div>
-          )}
-        </section>
+
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                {filteredMovies.map(movie => (
+                  <MovieCard 
+                    key={movie.id} 
+                    movie={movie} 
+                    onClick={(m) => setSelectedMovie(m)}
+                  />
+                ))}
+              </div>
+
+              {filteredMovies.length === 0 && !isLoading && (
+                <div className="text-center py-32 space-y-6 bg-muted/20 rounded-3xl border border-dashed border-border">
+                  <div className="text-6xl">🎬</div>
+                  <div className="space-y-2">
+                    <p className="text-2xl font-bold">No results found</p>
+                    <p className="text-muted-foreground">Try adjusting your filters or search terms</p>
+                  </div>
+                  <Button variant="outline" className="rounded-full" onClick={() => {setSearchQuery(""); setActiveFilter("All")}}>
+                    Clear all filters
+                  </Button>
+                </div>
+              )}
+            </section>
+          </>
+        )}
       </main>
 
       <footer className="border-t bg-muted/20 py-20 mt-20">
@@ -163,7 +215,7 @@ export default function Home() {
               <span className="text-3xl font-black tracking-tighter text-accent">CINEVERSE</span>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              The premier destination for cinematic excellence. Discover thousands of titles from across the globe with our AI-driven discovery engine.
+              The premier destination for cinematic excellence. Discover thousands of titles from across the globe with our live TMDB-powered discovery engine.
             </p>
           </div>
           <div>
@@ -195,7 +247,7 @@ export default function Home() {
           </div>
         </div>
         <div className="container mx-auto px-4 mt-20 pt-8 border-t border-border/50 text-center text-muted-foreground">
-          <p>© {currentYear || '...'} CineVerse Entertainment Inc. All rights reserved.</p>
+          <p>© {currentYear || '...'} CineVerse Entertainment Inc. Powered by TMDB API.</p>
         </div>
       </footer>
 
@@ -237,7 +289,7 @@ function MovieSection({ title, movies, icon, onMovieClick }: MovieSectionProps) 
       <Carousel
         opts={{
           align: "start",
-          loop: true,
+          loop: movies.length > 5,
         }}
         className="w-full"
       >
