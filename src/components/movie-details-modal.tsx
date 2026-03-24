@@ -30,6 +30,38 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
     }
   }, [isOpen])
 
+  const handleRazorpayPayment = () => {
+    if (typeof window === "undefined" || !(window as any).Razorpay) {
+      alert("Payment gateway is loading, please try again in a moment.");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_cineverse_dummy", // Dummy key for prototype
+      amount: 29900, // Amount in paise/cents (299.00 -> 29900)
+      currency: "USD",
+      name: "CineVerse Premium",
+      description: `Annual subscription for ${movie?.title}`,
+      image: "https://picsum.photos/seed/cine1/200/200",
+      handler: function (response: any) {
+        alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+        setShowSubscription(false);
+        onClose();
+      },
+      prefill: {
+        name: "CineVerse Explorer",
+        email: "hello@cineverse.ai",
+        contact: "9999999999"
+      },
+      theme: {
+        color: "#5e5ce6" // Matching our primary brand color
+      }
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
+  };
+
   if (!movie) return null
 
   return (
@@ -110,7 +142,10 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
                     <Badge className="bg-accent text-accent-foreground font-bold">BEST VALUE</Badge>
                   </div>
                   <div className="text-4xl font-black mb-6">$299<span className="text-lg font-normal text-muted-foreground">/year</span></div>
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-lg font-bold">
+                  <Button 
+                    onClick={handleRazorpayPayment}
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-lg font-bold"
+                  >
                     <CreditCard className="w-5 h-5 mr-2" /> Subscribe Now
                   </Button>
                 </div>
