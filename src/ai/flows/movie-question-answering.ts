@@ -21,8 +21,6 @@ const MovieQuestionOutputSchema = z.object({
 export type MovieQuestionOutput = z.infer<typeof MovieQuestionOutputSchema>;
 
 // Mock Tool for getting movie details
-// In a real application, this would call an external movie API.
-// For now, it returns mock data for demonstration.
 const getMovieDetails = ai.defineTool(
   {
     name: 'getMovieDetails',
@@ -52,23 +50,23 @@ const getMovieDetails = ai.defineTool(
         cast: ['Leonardo DiCaprio', 'Joseph Gordon-Levitt', 'Elliot Page'],
         genres: ['Action', 'Sci-Fi', 'Thriller'],
       },
-      'pulp fiction': {
-        title: 'Pulp Fiction',
-        director: 'Quentin Tarantino',
-        runtime: '2h 34m',
-        plot: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
-        releaseDate: '1994-10-14',
-        cast: ['John Travolta', 'Uma Thurman', 'Samuel L. Jackson'],
-        genres: ['Crime', 'Drama'],
+      'rrr': {
+        title: 'RRR',
+        director: 'S. S. Rajamouli',
+        runtime: '3h 7m',
+        plot: 'A fictitious story about two legendary revolutionaries and their journey away from home before they started fighting for their country in 1920s.',
+        releaseDate: '2022-03-25',
+        cast: ['N. T. Rama Rao Jr.', 'Ram Charan', 'Ajay Devgn'],
+        genres: ['Action', 'Drama'],
       },
-      'the matrix': {
-        title: 'The Matrix',
-        director: 'Lana Wachowski, Lilly Wachowski',
-        runtime: '2h 16m',
-        plot: 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.',
-        releaseDate: '1999-03-31',
-        cast: ['Keanu Reeves', 'Laurence Fishburne', 'Carrie-Anne Moss'],
-        genres: ['Action', 'Sci-Fi'],
+      'dangal': {
+        title: 'Dangal',
+        director: 'Nitesh Tiwari',
+        runtime: '2h 41m',
+        plot: 'Former wrestler Mahavir Singh Phogat and his two wrestler daughters struggle towards glory at the Commonwealth Games in the face of societal oppression.',
+        releaseDate: '2016-12-21',
+        cast: ['Aamir Khan', 'Sakshi Tanwar', 'Fatima Sana Shaikh'],
+        genres: ['Action', 'Biography', 'Drama'],
       },
     };
 
@@ -76,7 +74,7 @@ const getMovieDetails = ai.defineTool(
     if (mockMovieData[normalizedTitle]) {
       return { ...mockMovieData[normalizedTitle], found: true };
     }
-    return { found: false }; // Indicate that the movie was not found
+    return { found: false }; 
   }
 );
 
@@ -86,29 +84,20 @@ const movieQuestionPrompt = ai.definePrompt({
   input: { schema: MovieQuestionInputSchema },
   output: { schema: MovieQuestionOutputSchema },
   tools: [getMovieDetails],
-  system: `You are a helpful AI chatbot assistant named CineWave. Your purpose is to answer specific movie-related questions accurately.
+  system: `You are a helpful AI chatbot assistant named CineVerse AI. Your purpose is to answer specific movie-related questions accurately for both Hollywood and Bollywood films.
   
-  When a user asks a question about a movie, your primary task is to identify the movie title and the specific information requested (e.g., director, runtime, plot, cast, release date, genres).
+  When a user asks a question about a movie, your primary task is to identify the movie title and the specific information requested.
   
   **Instructions for using the 'getMovieDetails' tool:**
-  1.  If the question clearly indicates a need for movie details (e.g., asking "who directed...", "what is the runtime...", "tell me about...", "what's the cast of..."), use the 'getMovieDetails' tool.
-  2.  Carefully extract the full and accurate movie title from the user's question to pass as the 'title' argument to the 'getMovieDetails' tool.
-  3.  After receiving the details from the tool, formulate a concise and accurate answer based *only* on the information provided by the tool.
-  4.  If the tool returns no details for the movie (i.e., 'found' is false or fields are missing), politely state that you could not find the information for that movie.
+  1.  If the question clearly indicates a need for movie details, use the 'getMovieDetails' tool.
+  2.  Carefully extract the full and accurate movie title.
+  3.  Formulate a concise and accurate answer based *only* on the information provided by the tool.
   
   **Examples:**
-  - User: "Who directed Inception?"
-    Assistant: "Christopher Nolan directed Inception."
-  - User: "What is the runtime of Pulp Fiction?"
-    Assistant: "The runtime of Pulp Fiction is 2h 34m."
-  - User: "Tell me about The Matrix."
-    Assistant: "The Matrix is a 1999 sci-fi action film directed by Lana Wachowski and Lilly Wachowski. Its plot involves a computer hacker who learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers. It has a runtime of 2h 16m and stars Keanu Reeves, Laurence Fishburne, and Carrie-Anne Moss."
-  - User: "What is the plot of a movie called \"NonExistentMovie\"?"
-    Assistant: "I'm sorry, I couldn't find details for a movie called NonExistentMovie."
-  - User: "What genres is Inception?"
-    Assistant: "Inception is an Action, Sci-Fi, Thriller film."
-  - User: "When was Pulp Fiction released?"
-    Assistant: "Pulp Fiction was released on 1994-10-14."
+  - User: "Who directed RRR?"
+    Assistant: "S. S. Rajamouli directed RRR."
+  - User: "What is the plot of Dangal?"
+    Assistant: "Dangal follows former wrestler Mahavir Singh Phogat and his two daughters as they struggle for glory at the Commonwealth Games against societal odds."
   `,
   prompt: `{{{question}}}`
 });

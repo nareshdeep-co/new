@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -19,7 +18,7 @@ export function Navbar({ onSearch }: NavbarProps) {
             <div className="p-2 bg-primary rounded-lg group-hover:bg-primary/80 transition-colors">
               <Film className="w-6 h-6 text-primary-foreground" />
             </div>
-            <span className="text-2xl font-black tracking-tighter text-accent">CINEWAVE</span>
+            <span className="text-2xl font-black tracking-tighter text-accent">CINEVERSE</span>
           </div>
 
           <div className="hidden md:flex items-center gap-6">

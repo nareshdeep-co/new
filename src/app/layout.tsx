@@ -1,9 +1,8 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'CineWave - Your Cinematic Universe',
+  title: 'CineVerse - Your Cinematic Universe',
   description: 'AI-Powered movie discovery and browsing platform',
 };
 

@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -21,7 +20,7 @@ export default function Home() {
     setCurrentYear(new Date().getFullYear())
   }, [])
 
-  const filters = ["All", "Action", "Sci-Fi", "Drama", "Crime", "Thriller"]
+  const filters = ["All", "Action", "Sci-Fi", "Drama", "Crime", "Thriller", "Musical", "Adventure"]
 
   const filteredMovies = MOVIES.filter(movie => {
     const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -40,12 +39,13 @@ export default function Home() {
             src="https://picsum.photos/seed/cine1/1200/600" 
             alt="Hero Banner"
             className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
+            data-ai-hint="cinematic landscape"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent flex flex-col justify-center px-12 space-y-4">
             <Badge className="w-fit bg-accent text-accent-foreground font-bold">FEATURING</Badge>
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter">BEYOND <span className="text-accent">REALITY</span></h1>
             <p className="text-lg text-muted-foreground max-w-lg">
-              Explore the boundaries of the mind with our curated collection of mind-bending masterpieces.
+              Explore the boundaries of the mind with our curated collection of mind-bending masterpieces from Hollywood to Bollywood.
             </p>
             <div className="flex gap-4 pt-4">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
@@ -114,7 +114,7 @@ export default function Home() {
       <footer className="border-t bg-muted/20 py-12">
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <span className="text-2xl font-black tracking-tighter text-accent">CINEWAVE</span>
+            <span className="text-2xl font-black tracking-tighter text-accent">CINEVERSE</span>
             <p className="text-sm text-muted-foreground">
               Your ultimate destination for discovering and experiencing the magic of cinema.
             </p>
@@ -148,7 +148,7 @@ export default function Home() {
           </div>
         </div>
         <div className="container mx-auto px-4 mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          © {currentYear || '...'} CineWave. All rights reserved.
+          © {currentYear || '...'} CineVerse. All rights reserved.
         </div>
       </footer>
 

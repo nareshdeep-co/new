@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -24,7 +23,7 @@ export function ChatbotAssistant() {
     {
       id: '1',
       role: 'assistant',
-      content: "Hi! I'm CineWave AI. Ask me about directors, movie runtimes, or for a recommendation!"
+      content: "Hi! I'm CineVerse AI. Ask me about directors, movie runtimes, or for a recommendation from Hollywood or Bollywood!"
     }
   ])
   const [isLoading, setIsLoading] = React.useState(false)
@@ -72,7 +71,7 @@ export function ChatbotAssistant() {
               <div className="p-1.5 bg-background/20 rounded-lg">
                 <Bot className="w-5 h-5 text-primary-foreground" />
               </div>
-              <CardTitle className="text-lg text-primary-foreground">CineWave AI</CardTitle>
+              <CardTitle className="text-lg text-primary-foreground">CineVerse AI</CardTitle>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-primary-foreground hover:bg-white/10">
               <X className="w-4 h-4" />
