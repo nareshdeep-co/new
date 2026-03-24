@@ -14,10 +14,10 @@
       "imageHint": "dream architecture"
     },
     {
-      "id": "matrix",
-      "description": "Digital code falling in dark room",
-      "imageUrl": "https://picsum.photos/seed/mtx/400/600",
-      "imageHint": "digital matrix"
+      "id": "dark-knight",
+      "description": "Dark gritty city skyline at night",
+      "imageUrl": "https://picsum.photos/seed/tdk/400/600",
+      "imageHint": "batman city"
     },
     {
       "id": "interstellar",
@@ -26,58 +26,88 @@
       "imageHint": "space galaxy"
     },
     {
-      "id": "joker",
-      "description": "Gritty urban staircase",
-      "imageUrl": "https://picsum.photos/seed/jkr/400/600",
-      "imageHint": "urban city"
+      "id": "rrr",
+      "description": "Dramatic fire and water clash",
+      "imageUrl": "https://picsum.photos/seed/rrr/400/600",
+      "imageHint": "indian action"
     },
     {
-      "id": "dune",
-      "description": "Desert dunes at sunset",
-      "imageUrl": "https://picsum.photos/seed/dne/400/600",
-      "imageHint": "desert dunes"
-    },
-    {
-      "id": "avengers",
-      "description": "Team of heroes silhouette",
-      "imageUrl": "https://picsum.photos/seed/avg/400/600",
-      "imageHint": "superhero silhouette"
-    },
-    {
-      "id": "spiderman",
-      "description": "Comic book style city skyline",
+      "id": "spider-verse",
+      "description": "Vibrant comic book style city",
       "imageUrl": "https://picsum.photos/seed/spid/400/600",
       "imageHint": "comic city"
     },
     {
-      "id": "spirited",
-      "description": "Mystical bathhouse",
+      "id": "spirited-away",
+      "description": "Mystical bathhouse temple",
       "imageUrl": "https://picsum.photos/seed/spirit/400/600",
       "imageHint": "mystical temple"
     },
     {
-      "id": "breakingbad",
-      "description": "Desert landscape with RV",
+      "id": "arcane",
+      "description": "Steampunk city silhouette",
+      "imageUrl": "https://picsum.photos/seed/arc/400/600",
+      "imageHint": "steampunk city"
+    },
+    {
+      "id": "soul",
+      "description": "Abstract musical notes and jazz",
+      "imageUrl": "https://picsum.photos/seed/soul/400/600",
+      "imageHint": "jazz piano"
+    },
+    {
+      "id": "breaking-bad",
+      "description": "Yellow desert with RV",
       "imageUrl": "https://picsum.photos/seed/bb/400/600",
       "imageHint": "desert road"
     },
     {
-      "id": "stranger",
-      "description": "Retro bicycle in dark woods",
+      "id": "stranger-things",
+      "description": "Dark woods with flashlight",
       "imageUrl": "https://picsum.photos/seed/st/400/600",
       "imageHint": "dark forest"
     },
     {
-      "id": "got",
-      "description": "Iron throne in a dark hall",
+      "id": "game-of-thrones",
+      "description": "Iron sword throne",
       "imageUrl": "https://picsum.photos/seed/got/400/600",
       "imageHint": "medieval throne"
     },
     {
-      "id": "parasite",
-      "description": "Modern architecture house",
-      "imageUrl": "https://picsum.photos/seed/para/400/600",
-      "imageHint": "modern house"
+      "id": "the-boys",
+      "description": "Gritty superhero graffiti",
+      "imageUrl": "https://picsum.photos/seed/boys/400/600",
+      "imageHint": "street graffiti"
+    },
+    {
+      "id": "succession",
+      "description": "Luxury high-rise office",
+      "imageUrl": "https://picsum.photos/seed/succ/400/600",
+      "imageHint": "luxury office"
+    },
+    {
+      "id": "wasseypur",
+      "description": "Gritty industrial coal mine",
+      "imageUrl": "https://picsum.photos/seed/wasse/400/600",
+      "imageHint": "industrial city"
+    },
+    {
+      "id": "drishyam",
+      "description": "Family silhouette in rain",
+      "imageUrl": "https://picsum.photos/seed/drish/400/600",
+      "imageHint": "mystery thriller"
+    },
+    {
+      "id": "tumbbad",
+      "description": "Ancient cursed stone temple",
+      "imageUrl": "https://picsum.photos/seed/tumb/400/600",
+      "imageHint": "ancient temple"
+    },
+    {
+      "id": "andhadhun",
+      "description": "Piano with spilled coffee",
+      "imageUrl": "https://picsum.photos/seed/andh/400/600",
+      "imageHint": "piano keys"
     },
     {
       "id": "gladiator",
@@ -86,34 +116,22 @@
       "imageHint": "roman colosseum"
     },
     {
-      "id": "arcane",
-      "description": "Steampunk city of Zaun",
-      "imageUrl": "https://picsum.photos/seed/arc/400/600",
-      "imageHint": "steampunk city"
+      "id": "parasite",
+      "description": "Modern glass architecture",
+      "imageUrl": "https://picsum.photos/seed/para/400/600",
+      "imageHint": "modern house"
     },
     {
-      "id": "succession",
-      "description": "Luxury office skyscraper",
-      "imageUrl": "https://picsum.photos/seed/succ/400/600",
-      "imageHint": "luxury office"
+      "id": "fight-club",
+      "description": "Pink soap bar on floor",
+      "imageUrl": "https://picsum.photos/seed/fight/400/600",
+      "imageHint": "gritty room"
     },
     {
-      "id": "tumbbad",
-      "description": "Ancient cursed temple",
-      "imageUrl": "https://picsum.photos/seed/tumb/400/600",
-      "imageHint": "ancient temple"
-    },
-    {
-      "id": "andhadhun",
-      "description": "Piano with sheet music",
-      "imageUrl": "https://picsum.photos/seed/andh/400/600",
-      "imageHint": "piano keys"
-    },
-    {
-      "id": "theboys",
-      "description": "Street graffiti of heroes",
-      "imageUrl": "https://picsum.photos/seed/boys/400/600",
-      "imageHint": "street graffiti"
+      "id": "mad-max",
+      "description": "Rusting car in desert",
+      "imageUrl": "https://picsum.photos/seed/max/400/600",
+      "imageHint": "desert car"
     }
   ]
 }

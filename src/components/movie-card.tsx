@@ -25,6 +25,7 @@ export function MovieCard({ movie, onClick }: MovieCardProps) {
           alt={movie.title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110"
+          data-ai-hint={movie.imageHint || "movie poster"}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
         
