@@ -10,11 +10,13 @@ interface NavbarProps {
 }
 
 export function Navbar({ onSearch }: NavbarProps) {
+  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+
   return (
     <nav className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2 group cursor-pointer">
+          <div className="flex items-center gap-2 group cursor-pointer" onClick={() => window.location.reload()}>
             <div className="p-2 bg-primary rounded-lg group-hover:bg-primary/80 transition-colors">
               <Film className="w-6 h-6 text-primary-foreground" />
             </div>
@@ -29,23 +31,35 @@ export function Navbar({ onSearch }: NavbarProps) {
           </div>
         </div>
 
-        <div className="flex-1 max-w-md relative hidden sm:block">
+        <div className={`flex-1 max-w-md relative ${isSearchOpen ? 'block absolute inset-x-0 mx-4 bg-background z-50' : 'hidden sm:block'}`}>
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input 
             placeholder="Search movies by title..." 
             className="pl-10 bg-muted/50 border-none focus-visible:ring-1 focus-visible:ring-accent"
             onChange={(e) => onSearch(e.target.value)}
+            autoFocus={isSearchOpen}
           />
+          {isSearchOpen && (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="absolute right-1 top-1/2 -translate-y-1/2 sm:hidden"
+              onClick={() => setIsSearchOpen(false)}
+            >
+              <Menu className="w-4 h-4 rotate-45" />
+            </Button>
+          )}
         </div>
 
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="sm:hidden">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Button variant="ghost" size="icon" className="sm:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
             <Search className="w-5 h-5" />
           </Button>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" className="relative">
             <Bell className="w-5 h-5" />
+            <span className="absolute top-2 right-2 w-2 h-2 bg-accent rounded-full border border-background" />
           </Button>
-          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center border border-primary/40 cursor-pointer overflow-hidden">
+          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center border border-primary/40 cursor-pointer hover:bg-primary/30 transition-colors overflow-hidden">
             <User className="w-5 h-5 text-accent" />
           </div>
           <Button variant="ghost" size="icon" className="md:hidden">

@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -12,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Play, Star, Calendar, Clock, User } from "lucide-react"
+import { Play, Star, Calendar, Clock, User, ShieldCheck, CreditCard } from "lucide-react"
 import Image from "next/image"
 
 interface MovieDetailsModalProps {
@@ -22,6 +21,15 @@ interface MovieDetailsModalProps {
 }
 
 export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalProps) {
+  const [showSubscription, setShowSubscription] = React.useState(false)
+
+  // Reset subscription view when modal closes or movie changes
+  React.useEffect(() => {
+    if (!isOpen) {
+      setTimeout(() => setShowSubscription(false), 300)
+    }
+  }, [isOpen])
+
   if (!movie) return null
 
   return (
@@ -64,24 +72,53 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
 
         <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-6">
-            <div>
-              <h3 className="text-xl font-semibold mb-2">Synopsis</h3>
-              <DialogDescription className="text-muted-foreground text-base leading-relaxed">
-                {movie.description}
-              </DialogDescription>
-            </div>
+            {!showSubscription ? (
+              <>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Synopsis</h3>
+                  <DialogDescription className="text-muted-foreground text-base leading-relaxed">
+                    {movie.description}
+                  </DialogDescription>
+                </div>
 
-            <div>
-              <h3 className="text-xl font-semibold mb-3">Trailer</h3>
-              <div className="aspect-video w-full rounded-xl overflow-hidden bg-muted">
-                <iframe
-                  src={movie.trailerUrl}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">Trailer</h3>
+                  <div className="aspect-video w-full rounded-xl overflow-hidden bg-muted">
+                    <iframe
+                      src={movie.trailerUrl}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center space-y-6 py-12 text-center bg-card rounded-2xl border border-primary/20 animate-in fade-in zoom-in duration-300">
+                <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center">
+                  <ShieldCheck className="w-10 h-10 text-accent" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-3xl font-black tracking-tight">CINEVERSE PREMIUM</h3>
+                  <p className="text-muted-foreground max-w-sm mx-auto">
+                    To watch "{movie.title}" and thousands of other titles, upgrade to our premium plan.
+                  </p>
+                </div>
+                <div className="p-6 bg-background rounded-xl border border-border w-full max-w-sm">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-sm font-medium text-muted-foreground">Annual Plan</span>
+                    <Badge className="bg-accent text-accent-foreground font-bold">BEST VALUE</Badge>
+                  </div>
+                  <div className="text-4xl font-black mb-6">$299<span className="text-lg font-normal text-muted-foreground">/year</span></div>
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-lg font-bold">
+                    <CreditCard className="w-5 h-5 mr-2" /> Subscribe Now
+                  </Button>
+                </div>
+                <Button variant="link" onClick={() => setShowSubscription(false)} className="text-muted-foreground">
+                  Cancel and return to details
+                </Button>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="space-y-6">
@@ -109,9 +146,14 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
               </ul>
             </div>
 
-            <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold">
-              <Play className="w-4 h-4 mr-2 fill-current" /> Watch Now
-            </Button>
+            {!showSubscription && (
+              <Button 
+                onClick={() => setShowSubscription(true)}
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold h-12 text-lg"
+              >
+                <Play className="w-4 h-4 mr-2 fill-current" /> Watch Now
+              </Button>
+            )}
           </div>
         </div>
       </DialogContent>
