@@ -15,6 +15,11 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = React.useState("")
   const [selectedMovie, setSelectedMovie] = React.useState<Movie | null>(null)
   const [activeFilter, setActiveFilter] = React.useState("All")
+  const [currentYear, setCurrentYear] = React.useState<number | null>(null)
+
+  React.useEffect(() => {
+    setCurrentYear(new Date().getFullYear())
+  }, [])
 
   const filters = ["All", "Action", "Sci-Fi", "Drama", "Crime", "Thriller"]
 
@@ -143,7 +148,7 @@ export default function Home() {
           </div>
         </div>
         <div className="container mx-auto px-4 mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} CineWave. All rights reserved.
+          © {currentYear || '...'} CineWave. All rights reserved.
         </div>
       </footer>
 
