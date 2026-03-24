@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/carousel"
 import { Sparkles, TrendingUp, Clock, Star, PlayCircle, Loader2 } from "lucide-react"
 import { fetchTrending, fetchTopRated, fetchNewReleases, searchMovies } from "@/lib/tmdb"
+import { Toaster } from "@/components/ui/toaster"
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = React.useState("")
@@ -75,15 +75,21 @@ export default function Home() {
   const displayMovies = searchQuery.trim() ? searchResults : trending
 
   const filteredMovies = displayMovies.filter(movie => {
-    const matchesFilter = activeFilter === "All" || 
-                          movie.genre.includes(activeFilter) || 
+    if (activeFilter === "All") return true
+    if (activeFilter === "My List") return movie.rating > 8.5 // Mock "My List" behavior for now
+    
+    const matchesFilter = movie.genre.includes(activeFilter) || 
                           movie.type === activeFilter
     return matchesFilter
   })
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <Navbar onSearch={setSearchQuery} />
+      <Navbar 
+        onSearch={setSearchQuery} 
+        onFilterChange={setActiveFilter}
+        activeFilter={activeFilter}
+      />
       
       <main className="flex-1 container mx-auto px-4 py-8 space-y-16">
         {/* Hero Section */}
@@ -123,7 +129,7 @@ export default function Home() {
           </div>
         ) : (
           <>
-            {!searchQuery && (
+            {!searchQuery && activeFilter === "All" && (
               <>
                 <MovieSection 
                   title="Trending This Week" 
@@ -154,7 +160,7 @@ export default function Home() {
                 <div className="space-y-2">
                   <h2 className="text-4xl font-black tracking-tight flex items-center gap-3">
                     <Sparkles className="w-8 h-8 text-accent animate-pulse" /> 
-                    {searchQuery ? `SEARCH RESULTS FOR "${searchQuery.toUpperCase()}"` : "EXPLORE ALL"}
+                    {searchQuery ? `SEARCH RESULTS FOR "${searchQuery.toUpperCase()}"` : activeFilter !== "All" ? `EXPLORE ${activeFilter.toUpperCase()}` : "EXPLORE ALL"}
                   </h2>
                   <p className="text-muted-foreground text-lg">
                     {searchQuery ? "Found in our live cinematic database" : "Browse our entire universe of content"}
@@ -221,10 +227,10 @@ export default function Home() {
           <div>
             <h4 className="text-lg font-bold mb-6">Discovery</h4>
             <ul className="text-muted-foreground space-y-4">
-              <li className="hover:text-accent cursor-pointer transition-colors">Popular Movies</li>
-              <li className="hover:text-accent cursor-pointer transition-colors">TV Series</li>
-              <li className="hover:text-accent cursor-pointer transition-colors">Animations</li>
-              <li className="hover:text-accent cursor-pointer transition-colors">New Releases</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("Movie")}>Popular Movies</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("Series")}>TV Series</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("Animation")}>Animations</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("All")}>New Releases</li>
             </ul>
           </div>
           <div>
@@ -232,7 +238,7 @@ export default function Home() {
             <ul className="text-muted-foreground space-y-4">
               <li className="hover:text-accent cursor-pointer transition-colors">Subscription</li>
               <li className="hover:text-accent cursor-pointer transition-colors">Manage Profile</li>
-              <li className="hover:text-accent cursor-pointer transition-colors">My Watchlist</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("My List")}>My Watchlist</li>
               <li className="hover:text-accent cursor-pointer transition-colors">Devices</li>
             </ul>
           </div>
@@ -258,6 +264,7 @@ export default function Home() {
       />
       
       <ChatbotAssistant />
+      <Toaster />
     </div>
   )
 }

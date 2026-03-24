@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Search, Film, Menu, Bell, User, Settings, CreditCard, LogOut, Clapperboard, Sparkles } from "lucide-react"
+import { Search, Bell, User, Settings, CreditCard, LogOut, Clapperboard, Sparkles, Menu, Info } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,22 +12,50 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useToast } from "@/hooks/use-toast"
 
 interface NavbarProps {
   onSearch: (query: string) => void
+  onFilterChange: (filter: string) => void
+  activeFilter: string
 }
 
-export function Navbar({ onSearch }: NavbarProps) {
+export function Navbar({ onSearch, onFilterChange, activeFilter }: NavbarProps) {
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+  const { toast } = useToast()
+
+  const navItems = [
+    { name: "Movies", filter: "Movie" },
+    { name: "Series", filter: "Series" },
+    { name: "Animation", filter: "Animation" },
+    { name: "My List", filter: "My List" },
+  ]
+
+  const notifications = [
+    { id: 1, title: "New Release", message: "Oppenheimer is now streaming!", time: "2h ago" },
+    { id: 2, title: "Subscription", message: "Your premium trial ends in 3 days.", time: "5h ago" },
+    { id: 3, title: "Trending", message: "RRR is trending in your region.", time: "1d ago" },
+  ]
+
+  const handleMyListClick = () => {
+    onFilterChange("My List")
+    toast({
+      title: "My List Filtered",
+      description: "Showing your saved cinematic masterpieces.",
+    })
+  }
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
         <div className="flex items-center gap-8">
-          {/* Enhanced Premium Logo */}
+          {/* Logo */}
           <div 
             className="flex items-center gap-3 group cursor-pointer" 
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              onFilterChange("All")
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
           >
             <div className="relative">
               <div className="p-2 bg-gradient-to-br from-primary to-accent rounded-xl shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
@@ -40,11 +68,19 @@ export function Navbar({ onSearch }: NavbarProps) {
             </span>
           </div>
 
+          {/* Desktop Nav Items */}
           <div className="hidden md:flex items-center gap-6">
-            <button className="text-sm font-medium hover:text-accent transition-colors">Movies</button>
-            <button className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">Series</button>
-            <button className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">Animation</button>
-            <button className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">My List</button>
+            {navItems.map((item) => (
+              <button 
+                key={item.name}
+                onClick={() => item.filter === "My List" ? handleMyListClick() : onFilterChange(item.filter)}
+                className={`text-sm font-medium transition-colors hover:text-accent ${
+                  activeFilter === item.filter ? 'text-accent' : 'text-muted-foreground'
+                }`}
+              >
+                {item.name}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -72,12 +108,36 @@ export function Navbar({ onSearch }: NavbarProps) {
           <Button variant="ghost" size="icon" className="sm:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
             <Search className="w-5 h-5" />
           </Button>
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-2 right-2 w-2 h-2 bg-accent rounded-full border border-background" />
-          </Button>
+
+          {/* Functional Notifications */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="relative">
+                <Bell className="w-5 h-5" />
+                <span className="absolute top-2 right-2 w-2 h-2 bg-accent rounded-full border border-background" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-80 bg-card border-border shadow-xl p-0 overflow-hidden">
+              <DropdownMenuLabel className="font-bold text-lg p-4 bg-muted/30">Notifications</DropdownMenuLabel>
+              <DropdownMenuSeparator className="m-0" />
+              <div className="max-h-[300px] overflow-y-auto">
+                {notifications.map((n) => (
+                  <div key={n.id} className="p-4 hover:bg-accent/5 cursor-pointer border-b last:border-0 transition-colors">
+                    <div className="flex justify-between items-start mb-1">
+                      <span className="font-semibold text-sm">{n.title}</span>
+                      <span className="text-[10px] text-muted-foreground uppercase">{n.time}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground line-clamp-2">{n.message}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="p-2 border-t text-center">
+                <Button variant="ghost" size="sm" className="w-full text-accent text-xs">View all notifications</Button>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
           
-          {/* Functional Profile Button */}
+          {/* Profile Button */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-primary/20 to-accent/20 flex items-center justify-center border border-accent/20 cursor-pointer hover:border-accent/50 hover:bg-primary/10 transition-all overflow-hidden">
