@@ -54,6 +54,59 @@ export const MOVIES: Movie[] = [
     runtime: '2h 49m',
     trailerUrl: 'https://www.youtube.com/embed/zSWdZVtXT7E'
   },
+  {
+    id: '9',
+    title: 'The Matrix',
+    year: 1999,
+    genre: ['Action', 'Sci-Fi'],
+    rating: 8.7,
+    image: 'https://picsum.photos/seed/mtx/400/600',
+    description: 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.',
+    director: 'Lana Wachowski, Lilly Wachowski',
+    cast: ['Keanu Reeves', 'Laurence Fishburne', 'Carrie-Anne Moss'],
+    runtime: '2h 16m',
+    trailerUrl: 'https://www.youtube.com/embed/vKQi3bBA1y8'
+  },
+  {
+    id: '10',
+    title: 'Pulp Fiction',
+    year: 1994,
+    genre: ['Crime', 'Drama'],
+    rating: 8.9,
+    image: 'https://picsum.photos/seed/pulp/400/600',
+    description: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
+    director: 'Quentin Tarantino',
+    cast: ['John Travolta', 'Uma Thurman', 'Samuel L. Jackson'],
+    runtime: '2h 34m',
+    trailerUrl: 'https://www.youtube.com/embed/s7EdQ4FqbhY'
+  },
+  {
+    id: '11',
+    title: 'Dune: Part Two',
+    year: 2024,
+    genre: ['Action', 'Adventure', 'Sci-Fi'],
+    rating: 8.6,
+    image: 'https://picsum.photos/seed/dune2/400/600',
+    description: 'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.',
+    director: 'Denis Villeneuve',
+    cast: ['Timothée Chalamet', 'Zendaya', 'Rebecca Ferguson'],
+    runtime: '2h 46m',
+    trailerUrl: 'https://www.youtube.com/embed/Way9Dexny3w'
+  },
+  {
+    id: '12',
+    title: 'Oppenheimer',
+    year: 2023,
+    genre: ['Biography', 'Drama', 'History'],
+    rating: 8.3,
+    image: 'https://picsum.photos/seed/opp/400/600',
+    description: 'The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.',
+    director: 'Christopher Nolan',
+    cast: ['Cillian Murphy', 'Emily Blunt', 'Matt Damon'],
+    runtime: '3h 0m',
+    trailerUrl: 'https://www.youtube.com/embed/uYPbbksJxIg'
+  },
+
   // Bollywood
   {
     id: '4',
@@ -93,6 +146,58 @@ export const MOVIES: Movie[] = [
     cast: ['Aamir Khan', 'Raghuvir Yadav', 'Gracy Singh'],
     runtime: '3h 44m',
     trailerUrl: 'https://www.youtube.com/embed/N6O2biF-pIs'
+  },
+  {
+    id: '13',
+    title: 'Sholay',
+    year: 1975,
+    genre: ['Action', 'Adventure', 'Comedy'],
+    rating: 8.1,
+    image: 'https://picsum.photos/seed/sholay/400/600',
+    description: 'After his family is murdered by a notorious and ruthless bandit, a retired police officer enlists the help of two outlaws to capture the bandit.',
+    director: 'Ramesh Sippy',
+    cast: ['Dharmendra', 'Sanjeev Kumar', 'Amitabh Bachchan'],
+    runtime: '3h 24m',
+    trailerUrl: 'https://www.youtube.com/embed/hLh_D6X4fG0'
+  },
+  {
+    id: '14',
+    title: 'Dilwale Dulhania Le Jayenge',
+    year: 1995,
+    genre: ['Drama', 'Musical', 'Romance'],
+    rating: 8.0,
+    image: 'https://picsum.photos/seed/ddlj/400/600',
+    description: 'When Raj meets Simran in Europe, it isn\'t love at first sight but when Simran moves to India for an arranged marriage, love makes its presence felt.',
+    director: 'Aditya Chopra',
+    cast: ['Shah Rukh Khan', 'Kajol', 'Amrish Puri'],
+    runtime: '3h 10m',
+    trailerUrl: 'https://www.youtube.com/embed/c25GKl5VNeQ'
+  },
+  {
+    id: '15',
+    title: 'PK',
+    year: 2014,
+    genre: ['Comedy', 'Drama', 'Sci-Fi'],
+    rating: 8.1,
+    image: 'https://picsum.photos/seed/pk/400/600',
+    description: 'An alien on Earth loses the only device he can use to communicate with his spaceship. His innocent nature and child-like questions force the country to evaluate the impact of religion on its people.',
+    director: 'Rajkumar Hirani',
+    cast: ['Aamir Khan', 'Anushka Sharma', 'Sanjay Dutt'],
+    runtime: '2h 33m',
+    trailerUrl: 'https://www.youtube.com/embed/82Z55nu75Gw'
+  },
+  {
+    id: '16',
+    title: 'Jawan',
+    year: 2023,
+    genre: ['Action', 'Thriller'],
+    rating: 7.0,
+    image: 'https://picsum.photos/seed/jawan/400/600',
+    description: 'A high-octane action thriller which outlines the emotional journey of a man who is set to rectify the wrongs in the society.',
+    director: 'Atlee',
+    cast: ['Shah Rukh Khan', 'Nayanthara', 'Vijay Sethupathi'],
+    runtime: '2h 49m',
+    trailerUrl: 'https://www.youtube.com/embed/k8YiqM0Y-78'
   },
   {
     id: '7',
