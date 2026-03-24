@@ -124,7 +124,7 @@ export function ChatbotAssistant() {
           className="rounded-full w-14 h-14 bg-primary text-primary-foreground shadow-2xl hover:scale-110 transition-transform"
           onClick={() => setIsOpen(true)}
         >
-          <MessageSquare className="w-6 h-6" />
+          <Bot className="w-6 h-6" />
         </Button>
       )}
     </div>
