@@ -76,7 +76,7 @@ export const MOVIES: Movie[] = [
     title: 'RRR',
     year: 2022,
     genre: ['Action', 'Drama'],
-    rating: 7.8,
+    rating: 8.2,
     image: getPlaceholder('rrr').url,
     imageHint: getPlaceholder('rrr').hint,
     description: 'A fictitious story about two legendary revolutionaries and their journey away from home before they started fighting for their country in 1920s.',
@@ -84,6 +84,21 @@ export const MOVIES: Movie[] = [
     cast: ['N. T. Rama Rao Jr.', 'Ram Charan', 'Ajay Devgn'],
     runtime: '3h 7m',
     trailerUrl: 'https://www.youtube.com/embed/f_vbAtFSEc0',
+    type: 'Movie'
+  },
+  {
+    id: '5',
+    title: 'Dangal',
+    year: 2016,
+    genre: ['Action', 'Biography', 'Drama'],
+    rating: 8.3,
+    image: getPlaceholder('dangal').url,
+    imageHint: getPlaceholder('dangal').hint,
+    description: 'Former wrestler Mahavir Singh Phogat and his two wrestler daughters struggle towards glory at the Commonwealth Games in the face of societal oppression.',
+    director: 'Nitesh Tiwari',
+    cast: ['Aamir Khan', 'Sakshi Tanwar', 'Fatima Sana Shaikh'],
+    runtime: '2h 41m',
+    trailerUrl: 'https://www.youtube.com/embed/x_7YlGv9u1g',
     type: 'Movie'
   },
   {
@@ -192,21 +207,6 @@ export const MOVIES: Movie[] = [
     type: 'Movie'
   },
   {
-    id: 'bol-3',
-    title: 'Dangal',
-    year: 2016,
-    genre: ['Action', 'Biography', 'Drama'],
-    rating: 8.3,
-    image: getPlaceholder('dangal').url,
-    imageHint: getPlaceholder('dangal').hint,
-    description: 'Former wrestler Mahavir Singh Phogat and his two wrestler daughters struggle towards glory at the Commonwealth Games in the face of societal oppression.',
-    director: 'Nitesh Tiwari',
-    cast: ['Aamir Khan', 'Sakshi Tanwar', 'Fatima Sana Shaikh'],
-    runtime: '2h 41m',
-    trailerUrl: 'https://www.youtube.com/embed/x_7YlGv9u1g',
-    type: 'Movie'
-  },
-  {
     id: 'bol-4',
     title: 'Sholay',
     year: 1975,
@@ -311,7 +311,6 @@ export const MOVIES: Movie[] = [
     trailerUrl: 'https://www.youtube.com/embed/lFzVjeohZg0',
     type: 'Animation'
   },
-  // Adding more Hollywood Blockbusters
   {
     id: 'hol-6',
     title: 'Barbie',
@@ -357,7 +356,6 @@ export const MOVIES: Movie[] = [
     trailerUrl: 'https://www.youtube.com/embed/TcMBFSGVi1c',
     type: 'Movie'
   },
-  // Adding more Bollywood Hits
   {
     id: 'bol-5',
     title: 'Bajirao Mastani',
@@ -402,21 +400,5 @@ export const MOVIES: Movie[] = [
     runtime: '2h 35m',
     trailerUrl: 'https://www.youtube.com/embed/ifIBOKCfjVs',
     type: 'Movie'
-  },
-  // Generic placeholders to reach volume
-  ...Array.from({ length: 40 }).map((_, i) => ({
-    id: `extra-${i}`,
-    title: `Cinematic Gem ${i + 1}`,
-    year: 2020 - Math.floor(i / 5),
-    genre: ['Drama', 'Thriller'],
-    rating: 7.5 + (i % 10) / 10,
-    image: `https://picsum.photos/seed/extra${i}/400/600`,
-    imageHint: 'cinematic scene',
-    description: 'An immersive cinematic journey through the unknown, featuring a stellar cast and breathtaking visuals.',
-    director: 'Various Artists',
-    cast: ['Actor A', 'Actor B'],
-    runtime: '2h 15m',
-    trailerUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    type: (i % 3 === 0 ? 'Series' : i % 3 === 1 ? 'Animation' : 'Movie') as any
-  }))
+  }
 ];
