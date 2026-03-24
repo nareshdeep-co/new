@@ -1,0 +1,47 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-movie",
+      "description": "Cinematic wide shot of a futuristic city",
+      "imageUrl": "https://picsum.photos/seed/cine1/1200/600",
+      "imageHint": "futuristic city"
+    },
+    {
+      "id": "inception",
+      "description": "Abstract dreamscape architecture",
+      "imageUrl": "https://picsum.photos/seed/inc/400/600",
+      "imageHint": "dream architecture"
+    },
+    {
+      "id": "matrix",
+      "description": "Digital code falling in dark room",
+      "imageUrl": "https://picsum.photos/seed/mtx/400/600",
+      "imageHint": "digital matrix"
+    },
+    {
+      "id": "interstellar",
+      "description": "Galaxy and black hole",
+      "imageUrl": "https://picsum.photos/seed/ist/400/600",
+      "imageHint": "space galaxy"
+    },
+    {
+      "id": "joker",
+      "description": "Gritty urban staircase",
+      "imageUrl": "https://picsum.photos/seed/jkr/400/600",
+      "imageHint": "urban city"
+    },
+    {
+      "id": "dune",
+      "description": "Desert dunes at sunset",
+      "imageUrl": "https://picsum.photos/seed/dne/400/600",
+      "imageHint": "desert dunes"
+    },
+    {
+      "id": "avengers",
+      "description": "Team of heroes silhouette",
+      "imageUrl": "https://picsum.photos/seed/avg/400/600",
+      "imageHint": "superhero silhouette"
+    }
+  ]
+}
