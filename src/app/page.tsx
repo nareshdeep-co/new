@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -20,11 +21,13 @@ export default function Home() {
     setCurrentYear(new Date().getFullYear())
   }, [])
 
-  const filters = ["All", "Action", "Sci-Fi", "Drama", "Crime", "Thriller", "Musical", "Adventure"]
+  const filters = ["All", "Movie", "Series", "Animation", "Action", "Sci-Fi", "Drama", "Crime", "Thriller", "Adventure"]
 
   const filteredMovies = MOVIES.filter(movie => {
     const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesFilter = activeFilter === "All" || movie.genre.includes(activeFilter)
+    const matchesFilter = activeFilter === "All" || 
+                          movie.genre.includes(activeFilter) || 
+                          movie.type === activeFilter
     return matchesSearch && matchesFilter
   })
 
@@ -63,7 +66,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-1">
               <h2 className="text-3xl font-bold flex items-center gap-2">
-                <Sparkles className="w-6 h-6 text-accent" /> Discover Movies
+                <Sparkles className="w-6 h-6 text-accent" /> Discover CineVerse
               </h2>
               <p className="text-muted-foreground">Find your next cinematic experience</p>
             </div>
@@ -95,7 +98,7 @@ export default function Home() {
 
           {filteredMovies.length === 0 && (
             <div className="text-center py-20 space-y-4">
-              <p className="text-2xl font-bold text-muted-foreground">No movies found matching your criteria</p>
+              <p className="text-2xl font-bold text-muted-foreground">No content found matching your criteria</p>
               <Button variant="link" onClick={() => {setSearchQuery(""); setActiveFilter("All")}}>
                 Clear all filters
               </Button>

@@ -11,10 +11,11 @@ export interface Movie {
   cast: string[];
   runtime: string;
   trailerUrl: string;
+  type?: 'Movie' | 'Series' | 'Animation';
 }
 
 export const MOVIES: Movie[] = [
-  // Hollywood
+  // --- EXISTING ---
   {
     id: '1',
     title: 'Inception',
@@ -26,7 +27,8 @@ export const MOVIES: Movie[] = [
     director: 'Christopher Nolan',
     cast: ['Leonardo DiCaprio', 'Joseph Gordon-Levitt', 'Elliot Page'],
     runtime: '2h 28m',
-    trailerUrl: 'https://www.youtube.com/embed/YoHD9XEInc0'
+    trailerUrl: 'https://www.youtube.com/embed/YoHD9XEInc0',
+    type: 'Movie'
   },
   {
     id: '2',
@@ -39,7 +41,8 @@ export const MOVIES: Movie[] = [
     director: 'Christopher Nolan',
     cast: ['Christian Bale', 'Heath Ledger', 'Aaron Eckhart'],
     runtime: '2h 32m',
-    trailerUrl: 'https://www.youtube.com/embed/EXeTwQWrcwY'
+    trailerUrl: 'https://www.youtube.com/embed/EXeTwQWrcwY',
+    type: 'Movie'
   },
   {
     id: '3',
@@ -52,62 +55,9 @@ export const MOVIES: Movie[] = [
     director: 'Christopher Nolan',
     cast: ['Matthew McConaughey', 'Anne Hathaway', 'Jessica Chastain'],
     runtime: '2h 49m',
-    trailerUrl: 'https://www.youtube.com/embed/zSWdZVtXT7E'
+    trailerUrl: 'https://www.youtube.com/embed/zSWdZVtXT7E',
+    type: 'Movie'
   },
-  {
-    id: '9',
-    title: 'The Matrix',
-    year: 1999,
-    genre: ['Action', 'Sci-Fi'],
-    rating: 8.7,
-    image: 'https://picsum.photos/seed/mtx/400/600',
-    description: 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.',
-    director: 'Lana Wachowski, Lilly Wachowski',
-    cast: ['Keanu Reeves', 'Laurence Fishburne', 'Carrie-Anne Moss'],
-    runtime: '2h 16m',
-    trailerUrl: 'https://www.youtube.com/embed/vKQi3bBA1y8'
-  },
-  {
-    id: '10',
-    title: 'Pulp Fiction',
-    year: 1994,
-    genre: ['Crime', 'Drama'],
-    rating: 8.9,
-    image: 'https://picsum.photos/seed/pulp/400/600',
-    description: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
-    director: 'Quentin Tarantino',
-    cast: ['John Travolta', 'Uma Thurman', 'Samuel L. Jackson'],
-    runtime: '2h 34m',
-    trailerUrl: 'https://www.youtube.com/embed/s7EdQ4FqbhY'
-  },
-  {
-    id: '11',
-    title: 'Dune: Part Two',
-    year: 2024,
-    genre: ['Action', 'Adventure', 'Sci-Fi'],
-    rating: 8.6,
-    image: 'https://picsum.photos/seed/dune2/400/600',
-    description: 'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.',
-    director: 'Denis Villeneuve',
-    cast: ['Timothée Chalamet', 'Zendaya', 'Rebecca Ferguson'],
-    runtime: '2h 46m',
-    trailerUrl: 'https://www.youtube.com/embed/Way9Dexny3w'
-  },
-  {
-    id: '12',
-    title: 'Oppenheimer',
-    year: 2023,
-    genre: ['Biography', 'Drama', 'History'],
-    rating: 8.3,
-    image: 'https://picsum.photos/seed/opp/400/600',
-    description: 'The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.',
-    director: 'Christopher Nolan',
-    cast: ['Cillian Murphy', 'Emily Blunt', 'Matt Damon'],
-    runtime: '3h 0m',
-    trailerUrl: 'https://www.youtube.com/embed/uYPbbksJxIg'
-  },
-
-  // Bollywood
   {
     id: '4',
     title: 'RRR',
@@ -119,110 +69,253 @@ export const MOVIES: Movie[] = [
     director: 'S. S. Rajamouli',
     cast: ['N. T. Rama Rao Jr.', 'Ram Charan', 'Ajay Devgn'],
     runtime: '3h 7m',
-    trailerUrl: 'https://www.youtube.com/embed/f_vbAtFSEc0'
+    trailerUrl: 'https://www.youtube.com/embed/f_vbAtFSEc0',
+    type: 'Movie'
   },
+
+  // --- NEW: ANIMATION ---
   {
-    id: '5',
-    title: 'Dangal',
-    year: 2016,
-    genre: ['Action', 'Biography', 'Drama'],
-    rating: 8.3,
-    image: 'https://picsum.photos/seed/dgl/400/600',
-    description: 'Former wrestler Mahavir Singh Phogat and his two wrestler daughters struggle towards glory at the Commonwealth Games in the face of societal oppression.',
-    director: 'Nitesh Tiwari',
-    cast: ['Aamir Khan', 'Sakshi Tanwar', 'Fatima Sana Shaikh'],
-    runtime: '2h 41m',
-    trailerUrl: 'https://www.youtube.com/embed/x_7YlGv9u1g'
-  },
-  {
-    id: '6',
-    title: 'Lagaan',
-    year: 2001,
-    genre: ['Drama', 'Musical', 'Sport'],
-    rating: 8.1,
-    image: 'https://picsum.photos/seed/lgn/400/600',
-    description: 'The people of a small village in Victorian India stake their future on a game of cricket against their ruthless British rulers.',
-    director: 'Ashutosh Gowariker',
-    cast: ['Aamir Khan', 'Raghuvir Yadav', 'Gracy Singh'],
-    runtime: '3h 44m',
-    trailerUrl: 'https://www.youtube.com/embed/N6O2biF-pIs'
-  },
-  {
-    id: '13',
-    title: 'Sholay',
-    year: 1975,
-    genre: ['Action', 'Adventure', 'Comedy'],
-    rating: 8.1,
-    image: 'https://picsum.photos/seed/sholay/400/600',
-    description: 'After his family is murdered by a notorious and ruthless bandit, a retired police officer enlists the help of two outlaws to capture the bandit.',
-    director: 'Ramesh Sippy',
-    cast: ['Dharmendra', 'Sanjeev Kumar', 'Amitabh Bachchan'],
-    runtime: '3h 24m',
-    trailerUrl: 'https://www.youtube.com/embed/hLh_D6X4fG0'
-  },
-  {
-    id: '14',
-    title: 'Dilwale Dulhania Le Jayenge',
-    year: 1995,
-    genre: ['Drama', 'Musical', 'Romance'],
-    rating: 8.0,
-    image: 'https://picsum.photos/seed/ddlj/400/600',
-    description: 'When Raj meets Simran in Europe, it isn\'t love at first sight but when Simran moves to India for an arranged marriage, love makes its presence felt.',
-    director: 'Aditya Chopra',
-    cast: ['Shah Rukh Khan', 'Kajol', 'Amrish Puri'],
-    runtime: '3h 10m',
-    trailerUrl: 'https://www.youtube.com/embed/c25GKl5VNeQ'
-  },
-  {
-    id: '15',
-    title: 'PK',
-    year: 2014,
-    genre: ['Comedy', 'Drama', 'Sci-Fi'],
-    rating: 8.1,
-    image: 'https://picsum.photos/seed/pk/400/600',
-    description: 'An alien on Earth loses the only device he can use to communicate with his spaceship. His innocent nature and child-like questions force the country to evaluate the impact of religion on its people.',
-    director: 'Rajkumar Hirani',
-    cast: ['Aamir Khan', 'Anushka Sharma', 'Sanjay Dutt'],
-    runtime: '2h 33m',
-    trailerUrl: 'https://www.youtube.com/embed/82Z55nu75Gw'
-  },
-  {
-    id: '16',
-    title: 'Jawan',
+    id: 'anim-1',
+    title: 'Spider-Man: Across the Spider-Verse',
     year: 2023,
-    genre: ['Action', 'Thriller'],
-    rating: 7.0,
-    image: 'https://picsum.photos/seed/jawan/400/600',
-    description: 'A high-octane action thriller which outlines the emotional journey of a man who is set to rectify the wrongs in the society.',
-    director: 'Atlee',
-    cast: ['Shah Rukh Khan', 'Nayanthara', 'Vijay Sethupathi'],
-    runtime: '2h 49m',
-    trailerUrl: 'https://www.youtube.com/embed/k8YiqM0Y-78'
+    genre: ['Animation', 'Action', 'Adventure'],
+    rating: 8.7,
+    image: 'https://picsum.photos/seed/spid/400/600',
+    description: 'Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence.',
+    director: 'Joaquim Dos Santos',
+    cast: ['Shameik Moore', 'Hailee Steinfeld', 'Oscar Isaac'],
+    runtime: '2h 20m',
+    trailerUrl: 'https://www.youtube.com/embed/shW9i6k8cB0',
+    type: 'Animation'
   },
   {
-    id: '7',
-    title: 'Everything Everywhere All At Once',
-    year: 2022,
-    genre: ['Action', 'Adventure', 'Comedy'],
-    rating: 7.8,
-    image: 'https://picsum.photos/seed/eeao/400/600',
-    description: 'A middle-aged Chinese immigrant is swept up into an insane adventure in which she alone can save existence by exploring other universes and connecting with the lives she could have led.',
-    director: 'Daniel Kwan, Daniel Scheinert',
-    cast: ['Michelle Yeoh', 'Stephanie Hsu', 'Ke Huy Quan'],
+    id: 'anim-2',
+    title: 'Spirited Away',
+    year: 2001,
+    genre: ['Animation', 'Adventure', 'Family'],
+    rating: 8.6,
+    image: 'https://picsum.photos/seed/spirit/400/600',
+    description: 'During her family\'s move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits.',
+    director: 'Hayao Miyazaki',
+    cast: ['Daveigh Chase', 'Suzanne Pleshette', 'Miyu Irino'],
+    runtime: '2h 5m',
+    trailerUrl: 'https://www.youtube.com/embed/ByXuk9QqQMC',
+    type: 'Animation'
+  },
+  {
+    id: 'anim-3',
+    title: 'Arcane',
+    year: 2021,
+    genre: ['Animation', 'Action', 'Adventure'],
+    rating: 9.0,
+    image: 'https://picsum.photos/seed/arc/400/600',
+    description: 'Set in utopian Piltover and the oppressed underground of Zaun, the story follows the origins of two iconic League champions-and the power that will tear them apart.',
+    director: 'Pascal Charrue',
+    cast: ['Hailee Steinfeld', 'Kevin Alejandro', 'Jason Spisak'],
+    runtime: '40m (Episodes)',
+    trailerUrl: 'https://www.youtube.com/embed/fXmAurh012s',
+    type: 'Animation'
+  },
+  {
+    id: 'anim-4',
+    title: 'Soul',
+    year: 2020,
+    genre: ['Animation', 'Adventure', 'Comedy'],
+    rating: 8.0,
+    image: 'https://picsum.photos/seed/soul/400/600',
+    description: 'After landing the gig of a lifetime, a New York jazz pianist suddenly finds himself trapped in a strange land between Earth and the afterlife.',
+    director: 'Pete Docter',
+    cast: ['Jamie Foxx', 'Tina Fey', 'Graham Norton'],
+    runtime: '1h 40m',
+    trailerUrl: 'https://www.youtube.com/embed/Gs_6_l0fGvU',
+    type: 'Animation'
+  },
+
+  // --- NEW: SERIES ---
+  {
+    id: 'ser-1',
+    title: 'Breaking Bad',
+    year: 2008,
+    genre: ['Series', 'Crime', 'Drama'],
+    rating: 9.5,
+    image: 'https://picsum.photos/seed/bb/400/600',
+    description: 'A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student in order to secure his family\'s future.',
+    director: 'Vince Gilligan',
+    cast: ['Bryan Cranston', 'Aaron Paul', 'Anna Gunn'],
+    runtime: '45m (Episodes)',
+    trailerUrl: 'https://www.youtube.com/embed/HhesaQXLuRY',
+    type: 'Series'
+  },
+  {
+    id: 'ser-2',
+    title: 'Stranger Things',
+    year: 2016,
+    genre: ['Series', 'Drama', 'Fantasy'],
+    rating: 8.7,
+    image: 'https://picsum.photos/seed/st/400/600',
+    description: 'When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces in order to get him back.',
+    director: 'The Duffer Brothers',
+    cast: ['Millie Bobby Brown', 'Finn Wolfhard', 'Winona Ryder'],
+    runtime: '50m (Episodes)',
+    trailerUrl: 'https://www.youtube.com/embed/b9EkMc79ZSU',
+    type: 'Series'
+  },
+  {
+    id: 'ser-3',
+    title: 'Game of Thrones',
+    year: 2011,
+    genre: ['Series', 'Action', 'Adventure'],
+    rating: 9.2,
+    image: 'https://picsum.photos/seed/got/400/600',
+    description: 'Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia.',
+    director: 'David Benioff',
+    cast: ['Emilia Clarke', 'Peter Dinklage', 'Kit Harington'],
+    runtime: '55m (Episodes)',
+    trailerUrl: 'https://www.youtube.com/embed/bjqEWgDVPe0',
+    type: 'Series'
+  },
+  {
+    id: 'ser-4',
+    title: 'The Boys',
+    year: 2019,
+    genre: ['Series', 'Action', 'Comedy'],
+    rating: 8.7,
+    image: 'https://picsum.photos/seed/boys/400/600',
+    description: 'A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.',
+    director: 'Eric Kripke',
+    cast: ['Karl Urban', 'Jack Quaid', 'Antony Starr'],
+    runtime: '1h (Episodes)',
+    trailerUrl: 'https://www.youtube.com/embed/MN8fOxo0mU0',
+    type: 'Series'
+  },
+  {
+    id: 'ser-5',
+    title: 'Succession',
+    year: 2018,
+    genre: ['Series', 'Drama'],
+    rating: 8.9,
+    image: 'https://picsum.photos/seed/succ/400/600',
+    description: 'The Roy family is known for controlling the biggest media and entertainment company in the world. However, their world changes when their father steps down from the company.',
+    director: 'Jesse Armstrong',
+    cast: ['Brian Cox', 'Jeremy Strong', 'Sarah Snook'],
+    runtime: '1h (Episodes)',
+    trailerUrl: 'https://www.youtube.com/embed/OzY2IWl6Wsc',
+    type: 'Series'
+  },
+
+  // --- NEW: BOLLYWOOD ---
+  {
+    id: 'bol-1',
+    title: 'Gangs of Wasseypur',
+    year: 2012,
+    genre: ['Action', 'Crime', 'Drama'],
+    rating: 8.2,
+    image: 'https://picsum.photos/seed/wasse/400/600',
+    description: 'A clash between Sultan and Shahid Khan leads to the expulsion of Khan from Wasseypur, and ignites a deadly blood feud spanning three generations.',
+    director: 'Anurag Kashyap',
+    cast: ['Manoj Bajpayee', 'Nawazuddin Siddiqui', 'Pankaj Tripathi'],
+    runtime: '5h 21m',
+    trailerUrl: 'https://www.youtube.com/embed/j-AkWDkXcMY',
+    type: 'Movie'
+  },
+  {
+    id: 'bol-2',
+    title: 'Drishyam',
+    year: 2015,
+    genre: ['Crime', 'Drama', 'Thriller'],
+    rating: 8.2,
+    image: 'https://picsum.photos/seed/drish/400/600',
+    description: 'Desperate measures are taken by a man who tries to save his family from the dark side of the law, after they commit an unexpected crime.',
+    director: 'Nishikant Kamat',
+    cast: ['Ajay Devgn', 'Shriya Saran', 'Tabu'],
+    runtime: '2h 43m',
+    trailerUrl: 'https://www.youtube.com/embed/AuuX2jY5mEw',
+    type: 'Movie'
+  },
+  {
+    id: 'bol-3',
+    title: 'Tumbbad',
+    year: 2018,
+    genre: ['Drama', 'Fantasy', 'Horror'],
+    rating: 8.2,
+    image: 'https://picsum.photos/seed/tumb/400/600',
+    description: 'A mythological story about a remote village where it always rains, and a family that builds a shrine for a cursed god of greed.',
+    director: 'Rahi Anil Barve',
+    cast: ['Sohum Shah', 'Jyoti Malshe', 'Anita Date'],
+    runtime: '1h 44m',
+    trailerUrl: 'https://www.youtube.com/embed/sN75MPxgvX8',
+    type: 'Movie'
+  },
+  {
+    id: 'bol-4',
+    title: 'Andhadhun',
+    year: 2018,
+    genre: ['Comedy', 'Crime', 'Music'],
+    rating: 8.2,
+    image: 'https://picsum.photos/seed/andh/400/600',
+    description: 'A series of mysterious events change the life of a blind pianist, who now must report a crime that he should not have seen.',
+    director: 'Sriram Raghavan',
+    cast: ['Ayushmann Khurrana', 'Tabu', 'Radhika Apte'],
     runtime: '2h 19m',
-    trailerUrl: 'https://www.youtube.com/embed/wxN1T1uxQ2g'
+    trailerUrl: 'https://www.youtube.com/embed/2iVYI99VGaw',
+    type: 'Movie'
+  },
+
+  // --- HOLLYWOOD ---
+  {
+    id: 'hol-1',
+    title: 'Gladiator',
+    year: 2000,
+    genre: ['Action', 'Adventure', 'Drama'],
+    rating: 8.5,
+    image: 'https://picsum.photos/seed/glad/400/600',
+    description: 'A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.',
+    director: 'Ridley Scott',
+    cast: ['Russell Crowe', 'Joaquin Phoenix', 'Connie Nielsen'],
+    runtime: '2h 35m',
+    trailerUrl: 'https://www.youtube.com/embed/P5ieIbInFpg',
+    type: 'Movie'
   },
   {
-    id: '8',
-    title: '3 Idiots',
-    year: 2009,
-    genre: ['Comedy', 'Drama'],
-    rating: 8.4,
-    image: 'https://picsum.photos/seed/3id/400/600',
-    description: 'Two friends are searching for their long lost companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots".',
-    director: 'Rajkumar Hirani',
-    cast: ['Aamir Khan', 'Madhavan', 'Mona Singh'],
-    runtime: '2h 50m',
-    trailerUrl: 'https://www.youtube.com/embed/K0eDlFX9GMc'
+    id: 'hol-2',
+    title: 'Parasite',
+    year: 2019,
+    genre: ['Drama', 'Thriller'],
+    rating: 8.5,
+    image: 'https://picsum.photos/seed/para/400/600',
+    description: 'Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.',
+    director: 'Bong Joon Ho',
+    cast: ['Song Kang-ho', 'Lee Sun-kyun', 'Cho Yeo-jeong'],
+    runtime: '2h 12m',
+    trailerUrl: 'https://www.youtube.com/embed/5xH0HfJHsaY',
+    type: 'Movie'
+  },
+  {
+    id: 'hol-3',
+    title: 'Fight Club',
+    year: 1999,
+    genre: ['Drama'],
+    rating: 8.8,
+    image: 'https://picsum.photos/seed/fight/400/600',
+    description: 'An insomniac office worker and a devil-may-care shoemaker form an underground fight club that evolves into much more.',
+    director: 'David Fincher',
+    cast: ['Brad Pitt', 'Edward Norton', 'Meat Loaf'],
+    runtime: '2h 19m',
+    trailerUrl: 'https://www.youtube.com/embed/qtRKdVHc-cE',
+    type: 'Movie'
+  },
+  {
+    id: 'hol-4',
+    title: 'Mad Max: Fury Road',
+    year: 2015,
+    genre: ['Action', 'Adventure', 'Sci-Fi'],
+    rating: 8.1,
+    image: 'https://picsum.photos/seed/max/400/600',
+    description: 'In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the help of a group of female prisoners, a psychotic worshiper, and a drifter named Max.',
+    director: 'George Miller',
+    cast: ['Tom Hardy', 'Charlize Theron', 'Nicholas Hoult'],
+    runtime: '2h 0m',
+    trailerUrl: 'https://www.youtube.com/embed/hEJnMQG9ev8',
+    type: 'Movie'
   }
 ];

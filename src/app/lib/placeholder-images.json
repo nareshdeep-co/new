@@ -42,6 +42,78 @@
       "description": "Team of heroes silhouette",
       "imageUrl": "https://picsum.photos/seed/avg/400/600",
       "imageHint": "superhero silhouette"
+    },
+    {
+      "id": "spiderman",
+      "description": "Comic book style city skyline",
+      "imageUrl": "https://picsum.photos/seed/spid/400/600",
+      "imageHint": "comic city"
+    },
+    {
+      "id": "spirited",
+      "description": "Mystical bathhouse",
+      "imageUrl": "https://picsum.photos/seed/spirit/400/600",
+      "imageHint": "mystical temple"
+    },
+    {
+      "id": "breakingbad",
+      "description": "Desert landscape with RV",
+      "imageUrl": "https://picsum.photos/seed/bb/400/600",
+      "imageHint": "desert road"
+    },
+    {
+      "id": "stranger",
+      "description": "Retro bicycle in dark woods",
+      "imageUrl": "https://picsum.photos/seed/st/400/600",
+      "imageHint": "dark forest"
+    },
+    {
+      "id": "got",
+      "description": "Iron throne in a dark hall",
+      "imageUrl": "https://picsum.photos/seed/got/400/600",
+      "imageHint": "medieval throne"
+    },
+    {
+      "id": "parasite",
+      "description": "Modern architecture house",
+      "imageUrl": "https://picsum.photos/seed/para/400/600",
+      "imageHint": "modern house"
+    },
+    {
+      "id": "gladiator",
+      "description": "Roman colosseum at sunset",
+      "imageUrl": "https://picsum.photos/seed/glad/400/600",
+      "imageHint": "roman colosseum"
+    },
+    {
+      "id": "arcane",
+      "description": "Steampunk city of Zaun",
+      "imageUrl": "https://picsum.photos/seed/arc/400/600",
+      "imageHint": "steampunk city"
+    },
+    {
+      "id": "succession",
+      "description": "Luxury office skyscraper",
+      "imageUrl": "https://picsum.photos/seed/succ/400/600",
+      "imageHint": "luxury office"
+    },
+    {
+      "id": "tumbbad",
+      "description": "Ancient cursed temple",
+      "imageUrl": "https://picsum.photos/seed/tumb/400/600",
+      "imageHint": "ancient temple"
+    },
+    {
+      "id": "andhadhun",
+      "description": "Piano with sheet music",
+      "imageUrl": "https://picsum.photos/seed/andh/400/600",
+      "imageHint": "piano keys"
+    },
+    {
+      "id": "theboys",
+      "description": "Street graffiti of heroes",
+      "imageUrl": "https://picsum.photos/seed/boys/400/600",
+      "imageHint": "street graffiti"
     }
   ]
 }
