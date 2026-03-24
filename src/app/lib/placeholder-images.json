@@ -132,6 +132,102 @@
       "description": "Rusting car in desert",
       "imageUrl": "https://picsum.photos/seed/max/400/600",
       "imageHint": "desert car"
+    },
+    {
+      "id": "matrix",
+      "description": "Green digital rain code",
+      "imageUrl": "https://picsum.photos/seed/mtx/400/600",
+      "imageHint": "digital code"
+    },
+    {
+      "id": "godfather",
+      "description": "Classic suit and rose",
+      "imageUrl": "https://picsum.photos/seed/gdf/400/600",
+      "imageHint": "mafia suit"
+    },
+    {
+      "id": "pulp-fiction",
+      "description": "Retro dance floor scene",
+      "imageUrl": "https://picsum.photos/seed/plp/400/600",
+      "imageHint": "retro dance"
+    },
+    {
+      "id": "dune",
+      "description": "Vast orange desert dunes",
+      "imageUrl": "https://picsum.photos/seed/dne/400/600",
+      "imageHint": "desert sand"
+    },
+    {
+      "id": "oppenheimer",
+      "description": "Intense fire and explosion",
+      "imageUrl": "https://picsum.photos/seed/opp/400/600",
+      "imageHint": "fire blast"
+    },
+    {
+      "id": "barbie",
+      "description": "Bright pink dream house",
+      "imageUrl": "https://picsum.photos/seed/brb/400/600",
+      "imageHint": "pink house"
+    },
+    {
+      "id": "joker",
+      "description": "Clown makeup in rain",
+      "imageUrl": "https://picsum.photos/seed/jkr/400/600",
+      "imageHint": "clown mask"
+    },
+    {
+      "id": "avengers",
+      "description": "Superhero emblem in rubble",
+      "imageUrl": "https://picsum.photos/seed/avg/400/600",
+      "imageHint": "hero shield"
+    },
+    {
+      "id": "lagaan",
+      "description": "Cricket bat in dusty field",
+      "imageUrl": "https://picsum.photos/seed/lgn/400/600",
+      "imageHint": "cricket field"
+    },
+    {
+      "id": "3-idiots",
+      "description": "Colorful college drones",
+      "imageUrl": "https://picsum.photos/seed/3id/400/600",
+      "imageHint": "college campus"
+    },
+    {
+      "id": "dangal",
+      "description": "Wrestling mud pit",
+      "imageUrl": "https://picsum.photos/seed/dng/400/600",
+      "imageHint": "wrestling ring"
+    },
+    {
+      "id": "sholay",
+      "description": "Rusty steam engine train",
+      "imageUrl": "https://picsum.photos/seed/shl/400/600",
+      "imageHint": "old train"
+    },
+    {
+      "id": "last-of-us",
+      "description": "Overgrown city ruins",
+      "imageUrl": "https://picsum.photos/seed/lou/400/600",
+      "imageHint": "ruined city"
+    },
+    {
+      "id": "the-bear",
+      "description": "Busy professional kitchen",
+      "imageUrl": "https://picsum.photos/seed/ber/400/600",
+      "imageHint": "chef kitchen"
+    },
+    {
+      "id": "toy-story",
+      "description": "Child's bedroom with toys",
+      "imageUrl": "https://picsum.photos/seed/toy/400/600",
+      "imageHint": "kid toys"
+    },
+    {
+      "id": "lion-king",
+      "description": "Savannah sunrise",
+      "imageUrl": "https://picsum.photos/seed/lion/400/600",
+      "imageHint": "africa sunrise"
     }
   ]
 }
