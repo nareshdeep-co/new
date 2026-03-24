@@ -3,7 +3,7 @@ import { Movie } from "./movie-data";
 
 const API_KEY = "c9e91d153ac4f4bd415d11ef1b92e5e5";
 const BASE_URL = "https://api.themoviedb.org/3";
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w780"; // Using higher quality images
 
 const GENRES: Record<number, string> = {
   28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime", 
@@ -22,7 +22,7 @@ const mapTMDBMovie = (item: any): Movie => ({
   description: item.overview || "No description available.",
   director: "Various",
   cast: [],
-  runtime: "N/A",
+  runtime: item.media_type === "tv" ? "Series" : "N/A",
   trailerUrl: "",
   type: item.media_type === "tv" ? "Series" : "Movie",
   imageHint: "movie poster"
@@ -51,4 +51,18 @@ export async function searchMovies(query: string) {
   const res = await fetch(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
   const data = await res.json();
   return (data.results || []).map(mapTMDBMovie);
+}
+
+export async function fetchMovieTrailer(movieId: string): Promise<string> {
+  // Extract numeric ID if it comes from our TMDB prefix
+  const cleanId = movieId.replace('tmdb-', '');
+  try {
+    const res = await fetch(`${BASE_URL}/movie/${cleanId}/videos?api_key=${API_KEY}`);
+    const data = await res.json();
+    const trailer = data.results?.find((v: any) => v.type === "Trailer" && v.site === "YouTube");
+    return trailer ? `https://www.youtube.com/embed/${trailer.key}` : "";
+  } catch (error) {
+    console.error("Error fetching trailer:", error);
+    return "";
+  }
 }

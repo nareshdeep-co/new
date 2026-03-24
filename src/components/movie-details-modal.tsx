@@ -12,8 +12,9 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Play, Star, Calendar, Clock, User, ShieldCheck, CreditCard } from "lucide-react"
+import { Play, Star, Calendar, Clock, User, ShieldCheck, CreditCard, Loader2 } from "lucide-react"
 import Image from "next/image"
+import { fetchMovieTrailer } from "@/lib/tmdb"
 
 interface MovieDetailsModalProps {
   movie: Movie | null
@@ -23,13 +24,31 @@ interface MovieDetailsModalProps {
 
 export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalProps) {
   const [showSubscription, setShowSubscription] = React.useState(false)
+  const [trailerUrl, setTrailerUrl] = React.useState<string>("")
+  const [isLoadingTrailer, setIsLoadingTrailer] = React.useState(false)
 
-  // Reset subscription view when modal closes or movie changes
+  // Reset subscription view and fetch trailer when modal closes or movie changes
   React.useEffect(() => {
     if (!isOpen) {
-      setTimeout(() => setShowSubscription(false), 300)
+      setTimeout(() => {
+        setShowSubscription(false)
+        setTrailerUrl("")
+      }, 300)
+      return
     }
-  }, [isOpen])
+
+    if (movie) {
+      if (movie.trailerUrl) {
+        setTrailerUrl(movie.trailerUrl)
+      } else if (movie.id.startsWith('tmdb-')) {
+        setIsLoadingTrailer(true)
+        fetchMovieTrailer(movie.id).then(url => {
+          setTrailerUrl(url)
+          setIsLoadingTrailer(false)
+        })
+      }
+    }
+  }, [isOpen, movie])
 
   const handleRazorpayPayment = () => {
     if (typeof window === "undefined" || !(window as any).Razorpay) {
@@ -38,8 +57,8 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
     }
 
     const options = {
-      key: "rzp_test_cineverse_dummy", // Dummy key for prototype
-      amount: 29900, // Amount in paise/cents (299.00 -> 29900)
+      key: "rzp_test_cineverse_dummy",
+      amount: 29900,
       currency: "USD",
       name: "CineVerse Premium",
       description: `Annual subscription for ${movie?.title}`,
@@ -55,7 +74,7 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
         contact: "9999999999"
       },
       theme: {
-        color: "#5e5ce6" // Matching our primary brand color
+        color: "#5e5ce6"
       }
     };
 
@@ -116,13 +135,25 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
 
                 <div>
                   <h3 className="text-xl font-semibold mb-3">Trailer</h3>
-                  <div className="aspect-video w-full rounded-xl overflow-hidden bg-muted">
-                    <iframe
-                      src={movie.trailerUrl}
-                      className="w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+                  <div className="aspect-video w-full rounded-xl overflow-hidden bg-muted flex items-center justify-center relative">
+                    {isLoadingTrailer ? (
+                      <div className="flex flex-col items-center gap-2">
+                        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+                        <p className="text-sm text-muted-foreground">Locating trailer...</p>
+                      </div>
+                    ) : trailerUrl ? (
+                      <iframe
+                        src={trailerUrl}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <div className="text-muted-foreground p-8 text-center">
+                        <Play className="w-12 h-12 mx-auto mb-2 opacity-20" />
+                        <p>No official trailer found for this title.</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </>
@@ -164,23 +195,25 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
                   <User className="w-4 h-4 text-accent" />
                 </div>
-                <span>{movie.director}</span>
+                <span>{movie.director || "Various"}</span>
               </div>
             </div>
 
-            <div>
-              <h3 className="text-sm uppercase tracking-wider text-muted-foreground font-semibold mb-3">Top Cast</h3>
-              <ul className="space-y-3">
-                {movie.cast.map((actor) => (
-                  <li key={actor} className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                      <User className="w-4 h-4 text-muted-foreground" />
-                    </div>
-                    <span>{actor}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {movie.cast && movie.cast.length > 0 && (
+              <div>
+                <h3 className="text-sm uppercase tracking-wider text-muted-foreground font-semibold mb-3">Top Cast</h3>
+                <ul className="space-y-3">
+                  {movie.cast.map((actor) => (
+                    <li key={actor} className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                        <User className="w-4 h-4 text-muted-foreground" />
+                      </div>
+                      <span className="text-sm">{actor}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {!showSubscription && (
               <Button 
