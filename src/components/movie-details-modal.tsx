@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -86,8 +87,8 @@ export function MovieDetailsModal({ movie, isOpen, onClose }: MovieDetailsModalP
             </div>
             <div className="flex-1">
               <div className="flex flex-wrap gap-2 mb-2">
-                {movie.genre.map((g) => (
-                  <Badge key={g} variant="secondary" className="bg-primary/20 text-accent">
+                {movie.genre.map((g, index) => (
+                  <Badge key={`${g}-${index}`} variant="secondary" className="bg-primary/20 text-accent">
                     {g}
                   </Badge>
                 ))}

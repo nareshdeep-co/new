@@ -47,8 +47,8 @@ export function MovieCard({ movie, onClick }: MovieCardProps) {
           <h3 className="font-bold text-lg leading-tight group-hover:text-accent transition-colors line-clamp-1">{movie.title}</h3>
         </div>
         <div className="flex flex-wrap gap-1">
-          {movie.genre.slice(0, 2).map((g) => (
-            <span key={g} className="text-[10px] uppercase tracking-wider text-muted-foreground">{g}</span>
+          {movie.genre.slice(0, 2).map((g, index) => (
+            <span key={`${g}-${index}`} className="text-[10px] uppercase tracking-wider text-muted-foreground">{g}</span>
           ))}
         </div>
         <p className="text-xs text-muted-foreground">{movie.year}</p>

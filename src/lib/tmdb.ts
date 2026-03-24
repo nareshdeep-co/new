@@ -1,7 +1,7 @@
 
 import { Movie } from "./movie-data";
 
-const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+const API_KEY = "c9e91d153ac4f4bd415d11ef1b92e5e5";
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -16,7 +16,7 @@ const mapTMDBMovie = (item: any): Movie => ({
   id: `tmdb-${item.id}`,
   title: item.title || item.name || "Untitled",
   year: new Date(item.release_date || item.first_air_date || Date.now()).getFullYear(),
-  genre: (item.genre_ids || []).map((id: number) => GENRES[id] || "Genre"),
+  genre: Array.from(new Set((item.genre_ids || []).map((id: number) => GENRES[id] || "Genre"))),
   rating: parseFloat(item.vote_average?.toFixed(1) || "0"),
   image: item.poster_path ? `${IMAGE_BASE_URL}${item.poster_path}` : "https://picsum.photos/seed/placeholder/400/600",
   description: item.overview || "No description available.",
