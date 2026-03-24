@@ -23,10 +23,10 @@ export function Navbar({ onSearch }: NavbarProps) {
           </div>
 
           <div className="hidden md:flex items-center gap-6">
-            <button className="text-sm font-medium hover:text-accent transition-colors">Movies</button>
-            <button className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">Series</button>
-            <button className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">Animation</button>
-            <button className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">My List</button>
+            <button suppressHydrationWarning className="text-sm font-medium hover:text-accent transition-colors">Movies</button>
+            <button suppressHydrationWarning className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">Series</button>
+            <button suppressHydrationWarning className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">Animation</button>
+            <button suppressHydrationWarning className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">My List</button>
           </div>
         </div>
 
