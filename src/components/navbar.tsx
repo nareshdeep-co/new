@@ -47,10 +47,17 @@ export function Navbar({ onSearch, onFilterChange, activeFilter }: NavbarProps) 
     })
   }
 
+  const handleProfileClick = () => {
+    toast({
+      title: "Profile Settings",
+      description: "You are currently logged in as CineVerse Explorer. Customization options are coming soon!",
+    })
+  }
+
   const handleSubscriptionClick = () => {
     toast({
       title: "CineVerse Premium",
-      description: "Unlock 4K streaming and exclusive content for just $299/year.",
+      description: "Unlock 4K streaming, offline downloads, and exclusive content for just $299/year.",
     })
   }
 
@@ -157,7 +164,10 @@ export function Navbar({ onSearch, onFilterChange, activeFilter }: NavbarProps) 
               <DropdownMenuContent align="end" className="w-56 bg-card border-border shadow-xl">
                 <DropdownMenuLabel className="font-bold text-lg p-3">My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-border/50" />
-                <DropdownMenuItem className="p-3 cursor-pointer focus:bg-accent focus:text-accent-foreground">
+                <DropdownMenuItem 
+                  className="p-3 cursor-pointer focus:bg-accent focus:text-accent-foreground"
+                  onClick={handleProfileClick}
+                >
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
