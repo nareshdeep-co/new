@@ -15,9 +15,10 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from "@/components/ui/carousel"
-import { Sparkles, TrendingUp, Clock, Star, PlayCircle, Loader2 } from "lucide-react"
+import { Sparkles, TrendingUp, Clock, Star, PlayCircle, Loader2, ArrowDown } from "lucide-react"
 import { fetchTrending, fetchTopRated, fetchNewReleases, searchMovies } from "@/lib/tmdb"
 import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/hooks/use-toast"
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = React.useState("")
@@ -30,6 +31,9 @@ export default function Home() {
   const [recent, setRecent] = React.useState<Movie[]>([])
   const [searchResults, setSearchResults] = React.useState<Movie[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
+
+  const discoveryRef = React.useRef<HTMLDivElement>(null)
+  const { toast } = useToast()
 
   React.useEffect(() => {
     setCurrentYear(new Date().getFullYear())
@@ -70,13 +74,24 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [searchQuery])
 
+  const scrollToDiscovery = () => {
+    discoveryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const handlePremiumClick = () => {
+    toast({
+      title: "CineVerse Premium",
+      description: "Unlock 4K streaming, offline downloads, and early access to new releases!",
+    })
+  }
+
   const filters = ["All", "Movie", "Series", "Animation", "Action", "Sci-Fi", "Drama", "Crime", "Thriller", "Adventure"]
 
   const displayMovies = searchQuery.trim() ? searchResults : trending
 
   const filteredMovies = displayMovies.filter(movie => {
     if (activeFilter === "All") return true
-    if (activeFilter === "My List") return movie.rating > 8.5 // Mock "My List" behavior for now
+    if (activeFilter === "My List") return movie.rating > 8.5
     
     const matchesFilter = movie.genre.includes(activeFilter) || 
                           movie.type === activeFilter
@@ -93,7 +108,7 @@ export default function Home() {
       
       <main className="flex-1 container mx-auto px-4 py-8 space-y-16">
         {/* Hero Section */}
-        <section className="relative h-[500px] rounded-[2.5rem] overflow-hidden bg-muted group cursor-pointer shadow-2xl">
+        <section className="relative h-[600px] rounded-[2.5rem] overflow-hidden bg-muted group shadow-2xl">
           <img 
             src="https://picsum.photos/seed/cine1/1200/600" 
             alt="Hero Banner"
@@ -101,7 +116,12 @@ export default function Home() {
             data-ai-hint="cinematic landscape"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent flex flex-col justify-center px-8 md:px-16 space-y-6">
-            <Badge className="w-fit bg-accent text-accent-foreground font-bold px-4 py-1">PREMIUM FEATURE</Badge>
+            <Badge 
+              className="w-fit bg-accent text-accent-foreground font-bold px-4 py-1 cursor-pointer hover:scale-105 transition-transform"
+              onClick={handlePremiumClick}
+            >
+              PREMIUM FEATURE
+            </Badge>
             <div className="space-y-2">
               <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
                 CINE<span className="text-accent">VERSE</span>
@@ -111,11 +131,22 @@ export default function Home() {
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
               Experience the best of Hollywood, Bollywood, and beyond. Real-time data powered by TMDB and tailored to your unique taste.
             </p>
-            <div className="flex gap-4 pt-4">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-14 text-lg font-bold shadow-lg shadow-primary/20">
-                Explore Now
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Button 
+                size="lg" 
+                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-14 text-lg font-bold shadow-lg shadow-primary/20"
+                onClick={scrollToDiscovery}
+              >
+                Explore Now <ArrowDown className="ml-2 w-5 h-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-accent/50 text-accent hover:bg-accent/10 rounded-full px-8 h-14 text-lg font-bold">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-accent/50 text-accent hover:bg-accent/10 rounded-full px-8 h-14 text-lg font-bold"
+                onClick={() => {
+                  if (trending[0]) setSelectedMovie(trending[0])
+                }}
+              >
                 <PlayCircle className="w-5 h-5 mr-2" /> Watch Trailer
               </Button>
             </div>
@@ -155,7 +186,7 @@ export default function Home() {
             )}
 
             {/* Discovery & Browsing Grid */}
-            <section className="space-y-8 pt-8">
+            <section ref={discoveryRef} className="space-y-8 pt-8 scroll-mt-24">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-2">
                   <h2 className="text-4xl font-black tracking-tight flex items-center gap-3">
@@ -227,18 +258,18 @@ export default function Home() {
           <div>
             <h4 className="text-lg font-bold mb-6">Discovery</h4>
             <ul className="text-muted-foreground space-y-4">
-              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("Movie")}>Popular Movies</li>
-              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("Series")}>TV Series</li>
-              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("Animation")}>Animations</li>
-              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("All")}>New Releases</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => { setActiveFilter("Movie"); scrollToDiscovery(); }}>Popular Movies</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => { setActiveFilter("Series"); scrollToDiscovery(); }}>TV Series</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => { setActiveFilter("Animation"); scrollToDiscovery(); }}>Animations</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => { setActiveFilter("All"); scrollToDiscovery(); }}>New Releases</li>
             </ul>
           </div>
           <div>
             <h4 className="text-lg font-bold mb-6">Account</h4>
             <ul className="text-muted-foreground space-y-4">
-              <li className="hover:text-accent cursor-pointer transition-colors">Subscription</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={handlePremiumClick}>Subscription</li>
               <li className="hover:text-accent cursor-pointer transition-colors">Manage Profile</li>
-              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => setActiveFilter("My List")}>My Watchlist</li>
+              <li className="hover:text-accent cursor-pointer transition-colors" onClick={() => { setActiveFilter("My List"); scrollToDiscovery(); }}>My Watchlist</li>
               <li className="hover:text-accent cursor-pointer transition-colors">Devices</li>
             </ul>
           </div>
